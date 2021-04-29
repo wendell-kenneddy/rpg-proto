@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPG Protótipo</title>
+  <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+  <header role="banner" id="page-header">
+    <h1 class="sr-only">Protótipo RPG</h1>
+
+    <div class="char-stats">
+      <p class="text-big highlighted-text-yellow">Player</p>
+
+      <div class="status-bar-container">
+        <p class="semibold-text">
+          HP </p>
+        <div class="status-bar-wrapper">
+          <div class="status-bar" id="hp-bar"></div>
+        </div>
+      </div>
+
+      <div class="status-bar-container">
+        <p class="semibold-text">STA </p>
+        <div class="status-bar-wrapper">
+          <div class="status-bar" id="sta-bar"></div>
+        </div>
+      </div>
+
+      <div class="status-bar-container">
+        <p class="semibold-text">EXP </p>
+        <div class="status-bar-wrapper">
+          <div class="status-bar" id="exp-bar"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="monster-section">
+      <p id="monster-name" class="text-big highlighted-text-yellow">Goblin
+        (Comum)</p>
+      <p id="monster-lvl" class="semibold-text">Nível: 1</p>
+      <p id="monster-hp" class="semibold-text">HP: 10 / 30</p>
+      <p id="monster-description" class="semibold-text">Um dos monstros mais
+        comuns de Bonbrado, estando presente em todas as regiões.</p>
+    </div>
+
+    <div class="btn-group">
+      <button class="styled-button attack-btn">Atacar</button>
+      <button class="styled-button defend-btn">Defender</button>
+      <button class="styled-button heal-btn">Curar</button>
+      <button class="styled-button summon-btn">Invocar</button>
+    </div>
+
+    <div class="char-log">
+      <p><span class="highlighted-text-yellow">Player</span> invocou <span
+          class="highlighted-text-yellow">Goblin (Comum)</span>.</p>
+      <p><span class="highlighted-text-yellow">Player</span> causou <span
+          class="highlighted-text-red">20</span> pontos de dano à <span
+          class="highlighted-text-yellow">Goblin (Comum)</span>.
+      </p>
+      <p><span class="highlighted-text-yellow">Goblin (Comum)</span> causou
+        <span class="highlighted-text-red">20</span> pontos de dano à <span
+          class="highlighted-text-yellow">Player</span>.
+      </p>
+      <p><span class="highlighted-text-yellow">Player</span> curou
+        <span class="highlighted-text-green">20</span> pontos de HP.
+      </p>
+      <p><span class="highlighted-text-yellow">Player</span> defendeu
+        <span class="highlighted-text-blue">8</span> pontos de dano.
+      </p>
+      <p><span class="highlighted-text-yellow">Player</span> defendeu
+        <span class="highlighted-text-blue">9</span> pontos de dano.
+      </p>
+      <p><span class="highlighted-text-yellow">Player</span> defendeu
+        <span class="highlighted-text-blue">5</span> pontos de dano.
+      </p>
+    </div>
+  </main>
+  <script src="./js/index.js"></script>
+</body>
+
+</html>
