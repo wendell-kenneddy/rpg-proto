@@ -70,6 +70,14 @@ body {
   cursor: pointer;
 }
 
+.char-create-button {
+  background: var(--light-yellow);
+}
+
+.char-create-button:hover {
+  background: var(--dark-yellow);
+}
+
 .attack-btn {
   background: var(--light-red);
 }
@@ -102,6 +110,47 @@ body {
   background: var(--dark-blue);
 }
 
+.overlay {
+  background: rgba(0, 0, 0, .6);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: var(--gray-background);
+  border: none;
+  border-radius: 4px;
+  width: 90vw;
+  max-width: 800px;
+  max-height: 500px;
+  overflow: auto;
+  color: #fff
+}
+
+.block-large {
+  width: 100%;
+  display: block;
+  font-size: 2rem;
+}
+
+.char-creation {
+  padding: 1rem;
+}
+
+.char-creation *+* {
+  margin: 1rem 0;
+}
+
+.hide {
+  display: none;
+}
+
 /* Header */
 
 #page-header {
@@ -110,7 +159,7 @@ body {
   color: #fff;
 }
 
-#page-header *+*{
+#page-header *+* {
   margin: 0.2rem 0;
 }
 
@@ -118,7 +167,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
 }
 
 .status-bar-wrapper {
@@ -127,7 +175,6 @@ body {
   border-radius: 4px;
   width: 80%;
   height: 1.5rem;
-  position: relative;
 }
 
 .status-bar {
@@ -140,16 +187,19 @@ body {
 #hp-bar {
   background: var(--light-red);
   width: 100%;
+  transition: width .6s ease-in-out;
 }
 
 #sta-bar {
   background: var(--light-green);
-  width: 85%;
+  width: 100%;
+  transition: width .6s ease-in-out;
 }
 
 #exp-bar {
   background: var(--light-yellow);
-  width: 10%;
+  width: 0;
+  transition: width .6s ease-in-out;
 }
 
 .highlighted-text-yellow {
