@@ -84,18 +84,28 @@ export const handleChar = {
     handleChar.updateMaxHP(5);
     handleChar.updateMaxSTA(5);
     handleChar.updateStrength(3);
+    handleChar.char.level += 1;
+    handleChar.updateCurrentHP(handleChar.char.maxHP);
+    handleChar.updateCurrentSTA(handleChar.char.maxSTA);
+    gameLog.updateLog(gameLog.getColorizedMessage('yellow', `${handleChar.char.name} atingiu o nível ${handleChar.char.level}!`))
+  },
+
+  gameOver() {
+    handleChar.updateCurrentEXP(-handleChar.char.expToNextLevel);
+    handlePlayerUI.updateGeneralUI();
+    handleChar.saveCurrentState();
   },
 
   tryRegenStatus() {
     let regenSTA = setInterval(() => {
       if (handleChar.char.currentSTA < handleChar.char.maxSTA) {
-        const logMessage = `<span class="highlighted-text-yellow">${handleChar.char.name}</span> regenerou <span class="highlighted-text-green">2</span> pontos de stamina.`;
+        const logMessage = `<span class="highlighted-text-yellow">${handleChar.char.name}</span> regenerou <span class="highlighted-text-green">${Math.floor(handleChar.char.maxSTA * 0.05)}</span> pontos de stamina.`;
 
-        handleChar.updateCurrentSTA(2);
+        handleChar.updateCurrentSTA(Math.floor(handleChar.char.maxSTA * 0.1));
         handlePlayerUI.updateSTAStatusBar();
         handleChar.saveCurrentState();
         gameLog.updateLog(logMessage);
       }
-    }, 5000);
+    }, 3000);
   }
 };
