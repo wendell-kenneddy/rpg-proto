@@ -5,6 +5,7 @@ export const handlePlayerUI = {
     handlePlayerUI.updateCharNameDisplay();
     handlePlayerUI.updateHPStatusBar();
     handlePlayerUI.updateSTAStatusBar();
+    handlePlayerUI.updateEXPStatusBar();
   },
 
   updateCharNameDisplay() {
