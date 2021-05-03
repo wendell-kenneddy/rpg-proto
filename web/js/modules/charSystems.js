@@ -65,16 +65,16 @@ export const handleChar = {
   },
 
   updateMaxHP(value) {
-    handleChar.char.maxHP = value;
+    handleChar.char.maxHP += value;
   },
 
   updateMaxSTA(value) {
-    handleChar.char.maxSTA = value;
+    handleChar.char.maxSTA += value;
   },
 
   updateExpToNextLevel() {
     const currentNeededExp = handleChar.char.expToNextLevel;
-    const updatedExpToNextLevel = currentNeededExp + (currentNeededExp * 0.1) + 5;
+    const updatedExpToNextLevel = Math.ceil(currentNeededExp + (currentNeededExp * 0.1) + 5);
     handleChar.char.expToNextLevel = updatedExpToNextLevel;
   },
 
