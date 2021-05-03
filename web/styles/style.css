@@ -186,13 +186,13 @@ body {
 
 #hp-bar {
   background: var(--light-red);
-  width: 100%;
+  width: 0;
   transition: width .6s ease-in-out;
 }
 
 #sta-bar {
   background: var(--light-green);
-  width: 100%;
+  width: 0;
   transition: width .6s ease-in-out;
 }
 
@@ -254,7 +254,7 @@ body {
   border-radius: 4px;
   padding: 1rem;
   width: 100%;
-  max-height: 150px;
+  max-height: 145px;
   overflow: auto;
   color: #fff;
   font-weight: 500;
