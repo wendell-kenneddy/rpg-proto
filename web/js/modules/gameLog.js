@@ -12,10 +12,14 @@ export const gameLog = {
     return currentTime;
   },
 
+  getColorizedMessage(color, message) {
+    return `<span class="highlighted-text-${color}">${message}</span>`
+  },
+
   createLog(message) {
     const p = document.createElement('p');
-    p.innerHTML = message;
-    p.innerHTML += ` <span class="highlighted-text-yellow">(${gameLog.getLogDate()})</span>.`;
+    p.innerHTML = `${message} `;
+    p.innerHTML += `${gameLog.getColorizedMessage('yellow', `(${gameLog.getLogDate()})`)}.`;
     return p;
   },
 
