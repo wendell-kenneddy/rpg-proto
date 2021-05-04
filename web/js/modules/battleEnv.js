@@ -12,6 +12,9 @@ export const battleEnviroment = {
     if (isEngage) {
       battleEnviroment.enemyIsSummoned = true;
       battleEnviroment.enemyIsAlive = true;
+
+      if (battleEnviroment.nemesis) battleEnviroment.nemesis = false;
+
       return;
     }
 
@@ -27,7 +30,7 @@ export const battleEnviroment = {
   healEnemy() {
     const currentHP = battleEnviroment.currentEnemy.currentHP;
     const maxHP = battleEnviroment.currentEnemy.maxHP;
-    const healValue = Math.ceil((maxHP - currentHP) * 0.1);
+    const healValue = Math.ceil((maxHP - currentHP) * 0.15);
     const logMessage = `${gameLog.getColorizedMessage('yellow', battleEnviroment.currentEnemy.name)} curou ${gameLog.getColorizedMessage('red', healValue)} pontos de HP.`
 
     battleEnviroment.currentEnemy.currentHP += healValue;
@@ -36,11 +39,12 @@ export const battleEnviroment = {
   },
 
   attackPlayer() {
-    const atkValue = battleEnviroment.currentEnemy.strength;
+    const atkValue = battleEnviroment.currentEnemy.strength + Math.ceil(Math.random() * battleEnviroment.currentEnemy.strength * 0.3);
     const logMessage = `${gameLog.getColorizedMessage('yellow', battleEnviroment.currentEnemy.name)} causou ${gameLog.getColorizedMessage('red', atkValue)} pontos de dano a ${gameLog.getColorizedMessage('yellow', handleChar.char.name)}.`;
 
     if (handleChar.char.currentHP - atkValue <= 0) {
-      gameLog.updateLog(gameLog.getColorizedMessage('red', `${battleEnviroment.currentEnemy.name} derrotou ${handleChar.char.name}.`));
+      gameLog.updateLog(gameLog.getColorizedMessage('red', `${battleEnviroment.currentEnemy.name} derrotou ${handleChar.char.name}. Seu pontos de experiência foram perdidos.`));
+      battleEnviroment.nemesis = true;
       handleChar.gameOver();
       return;
     }
@@ -63,6 +67,7 @@ export const battleEnviroment = {
     if (currentHP - atk.atkValue <= 0) {
       battleEnviroment.currentEnemy.currentHP = 0;
       handlePlayerUI.updateEnemy(battleEnviroment.currentEnemy);
+      gameLog.updateLog(logMessage);
       battleEnviroment.finishBattle();
       return;
     }
@@ -74,12 +79,14 @@ export const battleEnviroment = {
   },
 
   finishBattle() {
-    const logMessage = gameLog.getColorizedMessage('yellow', `${handleChar.char.name} derrotou ${battleEnviroment.currentEnemy.name}.`);
+    const exp = Math.floor(3 * handleChar.char.level + Math.random() * (handleChar.char.currentHP - 5) + 5);
+    const logMessage = gameLog.getColorizedMessage('yellow', `${handleChar.char.name} derrotou ${battleEnviroment.currentEnemy.name}! ${exp} pontos de experiência adquiridos.`);
 
     battleEnviroment.enemyIsAlive = false;
-    handleChar.updateCurrentEXP(25);
-    handlePlayerUI.updateGeneralUI();
     gameLog.updateLog(logMessage);
+    handleChar.updateCurrentEXP(exp);
+    handleChar.updateWinsCount();
+    handlePlayerUI.updateGeneralUI();
     handleChar.saveCurrentState();
   },
 
