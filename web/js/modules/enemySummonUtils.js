@@ -13,7 +13,7 @@ export const summonUtils = {
     'Criatura mundana que reside nos esgotos de Yorgue, fruto da reação dos mais diversos dejetos alquímicos. Um toque pode causar severos danos à pele e possível envenenamento.',
     'Criatura descendente dos Vampiros Inferiores. É relativamente ágil, pode mudar de forma em combate e drenar o sangue de seu oponente, além de deixá-lo exaurido.',
     'Criatura de certa forma inteligente, descendente dos antigos Mestres da Espada, extintos há muito. Seu corpo é trespassado por inúmeras lâminas, as quais usa para golpear seus oponentes em combate. Seu único instinto é lutar, na esperança de que impressione um de seus falecidos tutores.',
-    'Criatura fruto de grotescos experimentos alqúimicos. Possui capacidades físicas aprimoradas, além de diversos produtos alquímicos que pode atirar em seus oponentes.',
+    'Criatura fruto de grotescos experimentos alquímicos. Possui capacidades físicas aprimoradas, além de diversos produtos alquímicos que pode atirar em seus oponentes.',
     'Criatura incomum. Não há registros sobre sua aparição.',
     'Criatura comum, está em tudo que é lugar. Oferece certo risco, mas somente aos viajantes mais descuidados.',
     'Criatura intrigante que tenta imitar formas de vida próximas, geralmente animais e humanos. Não é o melhor espetáculo para se assistir, e geralmente é assassinada por dó ou por asco por parte de viajantes próximos, ainda que não apresente grande perigo se não ameaçada.',
