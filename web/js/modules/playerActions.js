@@ -21,11 +21,15 @@ export const handleActions = {
 
     const validateSummon = () => {
       if (playerSta < staRequirement) {
-        throw new Error('Você não possui stamina suficiente para Invocar.')
+        throw new Error('Você não possui stamina suficiente para invocar.')
       }
 
-      if (battleEnviroment.enemyIsSummoned && battleEnviroment.enemyIsAlive) {
-        throw new Error('Você não pode Invocar em combate.')
+      if (handleChar.char.currentHP == 0) {
+        throw new Error('Você não pode invocar estando com 0 pontos de HP.')
+      }
+
+      if (battleEnviroment.enemyIsSummoned && battleEnviroment.enemyIsAlive && !battleEnviroment.nemesis) {
+        throw new Error('Você não pode invocar em combate.')
       }
 
       return
@@ -48,11 +52,11 @@ export const handleActions = {
   },
 
   heal() {
-    const staRequirement = Math.ceil(handleChar.char.maxSTA * 0.1) + 5;
+    const staRequirement = Math.ceil(handleChar.char.maxSTA * 0.15);
     const playerSTA = handleChar.char.currentSTA;
     const currentHP = handleChar.char.currentHP;
     const maxHP = handleChar.char.maxHP;
-    const healAmount = Math.floor(handleChar.char.maxHP * 0.1 + ((handleChar.char.maxHP - handleChar.char.currentHP) * 0.2));
+    const healAmount = Math.floor(handleChar.char.maxHP * 0.1 + ((handleChar.char.maxHP - handleChar.char.currentHP) * 0.17));
 
     const validateHeal = () => {
       if (playerSTA < staRequirement) {
@@ -81,6 +85,7 @@ export const handleActions = {
 
   attack() {
     const staRequirement = Math.ceil(handleChar.char.maxSTA * 0.05);
+
     const getAtkValue = () => {
       let atkValue = 0;
       let isCrit = false;
@@ -99,16 +104,22 @@ export const handleActions = {
         isCrit
       };
     };
+
     const validateAtk = () => {
       if (handleChar.char.currentSTA < staRequirement) {
-        throw new Error('Você não possui stamina suficiente para Atacar.');
+        throw new Error('Você não possui stamina suficiente para atacar.');
       }
 
       if (!battleEnviroment.enemyIsSummoned) {
-        throw new Error('Você não pode Atacar fora de combate.')
+        throw new Error('Você não pode atacar fora de combate.')
       }
+
       if (battleEnviroment.enemyIsSummoned && !battleEnviroment.enemyIsAlive) {
         throw new Error('Você já derrotou seu oponente.');
+      }
+
+      if (battleEnviroment.nemesis) {
+        throw new Error(`${battleEnviroment.currentEnemy.name} o derrotou. Invoque outro oponente para continuar lutando.`);
       }
     };
 
@@ -124,12 +135,35 @@ export const handleActions = {
     }
   },
 
+  showStats() {
+    const hpInfo = `${gameLog.getColorizedMessage('red', 'HP')}: ${handleChar.char.currentHP}/${handleChar.char.maxHP}`;
+    const staInfo = `${gameLog.getColorizedMessage('green', 'STA')}: ${handleChar.char.currentSTA}/${handleChar.char.maxSTA}`;
+    const expInfo = `${gameLog.getColorizedMessage('yellow', 'EXP')}: ${handleChar.char.currentEXP}/${handleChar.char.expToNextLevel}`;
+    const levelInfo = `${gameLog.getColorizedMessage('yellow', 'Nível')}: ${handleChar.char.level}`;
+    let winsInfo = 0;
+    let defeatsInfo = 0;
+    let logMessage = `${gameLog.getColorizedMessage('yellow', `Status de ${handleChar.char.name}:`)} ${hpInfo},  ${staInfo},  ${expInfo}, ${levelInfo}`;
+
+    if (!handleChar.char.wins && !handleChar.char.defeats) {
+      handleChar.char.wins = 0;
+      handleChar.char.defeats = 0;
+    }
+
+    winsInfo = `${gameLog.getColorizedMessage('yellow', 'Vitórias')}: ${handleChar.char.wins}`;
+    defeatsInfo = `${gameLog.getColorizedMessage('yellow', 'Derrotas')}: ${handleChar.char.defeats}`;
+
+    logMessage += `, ${winsInfo}, ${defeatsInfo}.`
+
+    gameLog.updateLog(logMessage);
+  },
+
   watchActions() {
     const btnGroup = document.querySelector('.btn-group');
     btnGroup.addEventListener('click', e => {
       const summonBtn = document.querySelector('.summon-btn');
       const healBtn = document.querySelector('.heal-btn');
       const attackBtn = document.querySelector('.attack-btn');
+      const statsBtn = document.querySelector('.stats-btn');
 
       if (e.target == summonBtn) {
         handleActions.summonEnemy();
@@ -143,6 +177,11 @@ export const handleActions = {
 
       if (e.target == attackBtn) {
         handleActions.attack();
+        return;
+      }
+
+      if (e.target == statsBtn) {
+        handleActions.showStats();
         return;
       }
     })
