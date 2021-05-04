@@ -78,6 +78,14 @@ export const handleChar = {
     handleChar.char.expToNextLevel = updatedExpToNextLevel;
   },
 
+  updateWinsCount() {
+    handleChar.char.wins += 1;
+  },
+
+  updateDefeatsCount() {
+    handleChar.char.defeats += 1;
+  },
+
   levelUp() {
     handleChar.updateExpToNextLevel();
     handleChar.updateCurrentEXP(-handleChar.char.expToNextLevel);
@@ -92,6 +100,9 @@ export const handleChar = {
 
   gameOver() {
     handleChar.updateCurrentEXP(-handleChar.char.expToNextLevel);
+    handleChar.updateCurrentHP(-handleChar.char.maxHP);
+    handleChar.updateCurrentSTA(-handleChar.char.maxSTA);
+    handleChar.updateDefeatsCount();
     handlePlayerUI.updateGeneralUI();
     handleChar.saveCurrentState();
   },
@@ -99,7 +110,7 @@ export const handleChar = {
   tryRegenStatus() {
     let regenSTA = setInterval(() => {
       if (handleChar.char.currentSTA < handleChar.char.maxSTA) {
-        const logMessage = `<span class="highlighted-text-yellow">${handleChar.char.name}</span> regenerou <span class="highlighted-text-green">${Math.floor(handleChar.char.maxSTA * 0.05)}</span> pontos de stamina.`;
+        const logMessage = `${gameLog.getColorizedMessage('yellow', handleChar.char.name)} regenerou ${gameLog.getColorizedMessage('green', Math.floor(handleChar.char.maxSTA * 0.1))} pontos de stamina.`;
 
         handleChar.updateCurrentSTA(Math.floor(handleChar.char.maxSTA * 0.1));
         handlePlayerUI.updateSTAStatusBar();
