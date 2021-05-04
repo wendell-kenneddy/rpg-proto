@@ -12,6 +12,8 @@ function Char(name) {
   this.expToNextLevel = 100;
   this.level = 1;
   this.strength = 10;
+  this.wins = 0;
+  this.defeats = 0;
 }
 
 export const handleCharCreation = {
